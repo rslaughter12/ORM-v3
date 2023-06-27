@@ -1,8 +1,12 @@
+// server.js
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const userController = require('./controllers/userController');
+const postController = require('./controllers/postController');
+
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const port = 3001;
@@ -27,6 +31,7 @@ app.use(
 app.use(express.static('public'));
 
 // Routes
+app.use('/users', userRoutes);
 
 // Define route handler for the root URL
 app.get('/', (req, res) => {
@@ -38,26 +43,8 @@ app.get('/dashboard', (req, res) => {
   res.render('dashboard');
 });
 
-// POST route for user sign-in
-app.post('/users/signin', userController.signInUser);
-
-// POST route for user sign-up
-app.post('/users/signup', userController.signUpUser);
-
-// GET route for user logout
-app.get('/logout', (req, res) => {
-  // Clear the user session
-  req.session.destroy((error) => {
-    if (error) {
-      console.error('Failed to destroy session:', error);
-      res.status(500).send('An error occurred');
-    } else {
-      // Redirect the user to the home page and refresh the page
-      res.setHeader('Refresh', '0');
-      res.redirect('/');
-    }
-  });
-});
+// Define route handler for creating a new post
+app.post('/create', postController.createPost);
 
 // Start the server
 app.listen(port, () => {
