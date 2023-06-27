@@ -3,6 +3,7 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const userRoutes = require('./routes/userRoutes');
+const postController = require('./controllers/postController');
 
 const app = express();
 const port = 3001;
@@ -19,6 +20,7 @@ app.use(
 // Set up view engine
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views')); // Set the views directory
 
 // Set up body parsing
 app.use(express.urlencoded({ extended: true }));
@@ -56,6 +58,8 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
   });
 });
+
+app.post('/posts', postController.createPost); // Handle form submission
 
 // Start the server
 app.listen(port, () => {
