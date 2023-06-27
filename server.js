@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-const exphbs = require('express-handlebars');
+const exphbs = require('express-handlebars').create(); // Update this line
 const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 const postController = require('./controllers/postController');
@@ -18,9 +18,8 @@ app.use(
 );
 
 // Set up view engine
-app.engine('handlebars', exphbs());
+app.engine('handlebars', exphbs.engine); // Use the engine from exphbs
 app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, 'views')); // Set the views directory
 
 // Set up body parsing
 app.use(express.urlencoded({ extended: true }));
@@ -38,14 +37,7 @@ app.get('/', (req, res) => {
 });
 
 // Dashboard route
-app.get('/dashboard', (req, res) => {
-  // Check if the user is logged in
-  if (!req.session.userId) {
-    return res.redirect('/');
-  }
-  // Render the dashboard with the user's data
-  res.render('dashboard', { userId: req.session.userId });
-});
+app.get('/dashboard', postController.getPosts); // Retrieve posts and render dashboard view
 
 // Logout route
 app.get('/logout', (req, res) => {
@@ -59,7 +51,9 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.post('/posts', postController.createPost); // Handle form submission
+app.post('/posts', postController.createPost); // Create a new post
+
+app.set('views', path.join(__dirname, 'views'));
 
 // Start the server
 app.listen(port, () => {

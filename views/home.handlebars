@@ -4,15 +4,62 @@
   <meta charset="utf-8">
   <title>Home</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <style>
+    body {
+      background-color: #15202b;
+      color: #ffffff;
+      height: 100vh;
+    }
+
+    .navbar {
+      background-color: #192734
+    }
+
+    .navbar-item {
+      color: #ffffff;
+    }
+
+    .title {
+      color: #ffffff;
+    }
+
+    .card {
+      background-color: #243447;
+      color: #ffffff;
+    }
+
+    .card-content {
+      background-color: #182630;
+    }
+
+    .input,
+    .textarea {
+      background-color: #192734;
+      color: #ffffff;
+      border-color: #38444d;
+    }
+
+    .button.is-primary {
+      background-color: #1da1f2;
+      color: #ffffff;
+    }
+
+    .button.is-primary:hover {
+      background-color: #0c8bd6;
+    }
+
+    .notification.is-danger {
+      background-color: #192734;
+      color: #ffffff;
+      border-color: #bf3b53;
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
         Home
-      </a>
-      <a class="navbar-item" href="/">
-        Tech Blog
       </a>
       <a class="navbar-item navbar-item--right" href="/logout">
         Logout
@@ -26,22 +73,22 @@
         <div class="column is-half">
           <div class="card">
             <div class="card-content">
-              <h2 class="title">Sign Up</h2>
+              <h2 class="title has-text-white">Sign Up</h2>
               <form action="/users/signup" method="POST">
                 <div class="field">
-                  <label class="label" for="username">Username:</label>
+                  <label class="label has-text-white" for="username">Username:</label>
                   <div class="control">
                     <input class="input" type="text" id="username" name="username" required>
                   </div>
                 </div>
                 <div class="field">
-                  <label class="label" for="email">Email:</label>
+                  <label class="label has-text-white" for="email">Email:</label>
                   <div class="control">
                     <input class="input" type="email" id="email" name="email" required>
                   </div>
                 </div>
                 <div class="field">
-                  <label class="label" for="password">Password:</label>
+                  <label class="label has-text-white" for="password">Password:</label>
                   <div class="control">
                     <input class="input" type="password" id="password" name="password" required>
                   </div>
@@ -58,7 +105,7 @@
         <div class="column is-half">
           <div class="card">
             <div class="card-content">
-              <h2 class="title">Sign In</h2>
+              <h2 class="title has-text-white">Sign In</h2>
               {{#if error}}
                 <div class="notification is-danger">
                   {{error}}
@@ -66,13 +113,13 @@
               {{/if}}
               <form action="/users/signin" method="POST">
                 <div class="field">
-                  <label class="label" for="email">Email:</label>
+                  <label class="label has-text-white" for="email">Email:</label>
                   <div class="control">
                     <input class="input" type="email" id="email" name="email" required>
                   </div>
                 </div>
                 <div class="field">
-                  <label class="label" for="password">Password:</label>
+                  <label class="label has-text-white" for="password">Password:</label>
                   <div class="control">
                     <input class="input" type="password" id="password" name="password" required>
                   </div>
@@ -89,7 +136,19 @@
       </div>
     </div>
   </section>
-  
-  <script src="../static/login.js"></script>
+
+  <section class="section">
+    <div class="container">
+      <div class="card">
+        <div class="card-content">
+          <h2 class="title has-text-white">Introduction</h2>
+          <p class="subtitle has-text-white">
+            Welcome to our Tech Blog! Explore the latest trends, insights, and discussions in the world of technology. Join our community and share your thoughts.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </body>
 </html>

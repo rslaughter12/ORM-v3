@@ -15,7 +15,8 @@ exports.createPost = async (req, res) => {
 exports.getPosts = async (req, res) => {
   try {
     const posts = await Post.findAll();
-    res.render('dashboard', { posts });
+    const plainPosts = posts.map(post => post.get({ plain: true })); // Convert each post to a plain object
+    res.render('dashboard', { posts: plainPosts });
   } catch (error) {
     console.error('Error retrieving posts:', error);
     res.render('dashboard', { posts: [] });
