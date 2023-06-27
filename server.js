@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const userController = require('./controllers/userController');
 
-const userRoutes = require('./routes/userRoutes');
-
 const app = express();
 const port = 3001;
 
@@ -25,21 +23,40 @@ app.use(
   })
 );
 
-app.post('/users/signup', userController.signUpUser);
-
-
-// Routes
-app.use('/users', userRoutes);
+// Serve static files from the 'public' directory
 app.use(express.static('public'));
 
-// Define route handler for the root URL
+// Routes
+
 // Define route handler for the root URL
 app.get('/', (req, res) => {
-  res.render('home');
+  res.render('home', { loggedIn: !!req.session.userId });
 });
 
+// Define route handler for the dashboard URL
 app.get('/dashboard', (req, res) => {
   res.render('dashboard');
+});
+
+// POST route for user sign-in
+app.post('/users/signin', userController.signInUser);
+
+// POST route for user sign-up
+app.post('/users/signup', userController.signUpUser);
+
+// GET route for user logout
+app.get('/logout', (req, res) => {
+  // Clear the user session
+  req.session.destroy((error) => {
+    if (error) {
+      console.error('Failed to destroy session:', error);
+      res.status(500).send('An error occurred');
+    } else {
+      // Redirect the user to the home page and refresh the page
+      res.setHeader('Refresh', '0');
+      res.redirect('/');
+    }
+  });
 });
 
 // Start the server

@@ -39,3 +39,16 @@ exports.signUpUser = async (req, res) => {
     res.render('home', { error: 'An error occurred' });
   }
 };
+
+// Handle user logout
+exports.logoutUser = (req, res) => {
+  // Clear the user session
+  req.session.destroy((error) => {
+    if (error) {
+      console.error('Failed to destroy session:', error);
+    }
+    // Redirect the user to the home page and refresh the page
+    res.redirect('/');
+    res.setHeader('Refresh', '0');
+  });
+};
