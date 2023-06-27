@@ -1,0 +1,96 @@
+<!-- views/home.handlebars -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        Home
+      </a>
+      <a class="navbar-item" href="/">
+        Tech Blog
+      </a>
+      <a class="navbar-item navbar-item--right" href="/logout">
+        Logout
+      </a>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-half">
+          <div class="card">
+            <div class="card-content">
+              <h2 class="title">Sign Up</h2>
+              <form action="/users/signup" method="POST">
+                <div class="field">
+                  <label class="label" for="username">Username:</label>
+                  <div class="control">
+                    <input class="input" type="text" id="username" name="username" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label" for="email">Email:</label>
+                  <div class="control">
+                    <input class="input" type="email" id="email" name="email" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label" for="password">Password:</label>
+                  <div class="control">
+                    <input class="input" type="password" id="password" name="password" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-primary" type="submit">Sign Up</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="card">
+            <div class="card-content">
+              <h2 class="title">Sign In</h2>
+              {{#if error}}
+                <div class="notification is-danger">
+                  {{error}}
+                </div>
+              {{/if}}
+              <form action="/users/signin" method="POST">
+                <div class="field">
+                  <label class="label" for="email">Email:</label>
+                  <div class="control">
+                    <input class="input" type="email" id="email" name="email" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label" for="password">Password:</label>
+                  <div class="control">
+                    <input class="input" type="password" id="password" name="password" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-primary" type="submit">Sign In</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
+<script src="../static/login.js"></script>
+
