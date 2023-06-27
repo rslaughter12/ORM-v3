@@ -22,3 +22,17 @@ exports.getPosts = async (req, res) => {
     res.render('dashboard', { posts: [] });
   }
 };
+exports.deletePost = async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+    await Post.destroy({
+      where: { id: postId },
+    });
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    res.sendStatus(500);
+  }
+};

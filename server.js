@@ -55,6 +55,8 @@ app.post('/posts', postController.createPost); // Create a new post
 
 app.set('views', path.join(__dirname, 'views'));
 
+app.delete('/posts/:id', postController.deletePost); // Delete a post
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
