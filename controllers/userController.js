@@ -47,8 +47,7 @@ exports.logoutUser = (req, res) => {
     if (error) {
       console.error('Failed to destroy session:', error);
     }
-    // Redirect the user to the home page and refresh the page
+    // Redirect the user to the home page
     res.redirect('/');
-    res.setHeader('Refresh', '0');
   });
 };

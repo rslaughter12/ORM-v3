@@ -21,4 +21,3 @@ exports.getPosts = async (req, res) => {
     res.render('dashboard', { posts: [] });
   }
 };
-

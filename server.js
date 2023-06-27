@@ -1,52 +1,63 @@
-// server.js
 const express = require('express');
-const exphbs = require('express-handlebars');
-const bodyParser = require('body-parser');
 const session = require('express-session');
-const userController = require('./controllers/userController');
-const postController = require('./controllers/postController');
-
+const exphbs = require('express-handlebars');
+const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const port = 3001;
 
-// Configure Express to use Handlebars as the template engine
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
-
-// Configure body-parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// Configure express-session middleware
+// Set up session middleware
 app.use(
   session({
     secret: 'your-secret-key',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: true
   })
 );
 
-// Serve static files from the 'public' directory
-app.use(express.static('public'));
+// Set up view engine
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
-// Routes
+// Set up body parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Set up static directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Define routes
 app.use('/users', userRoutes);
 
-// Define route handler for the root URL
+// Home route
 app.get('/', (req, res) => {
-  res.render('home', { loggedIn: !!req.session.userId });
+  res.render('home');
 });
 
-// Define route handler for the dashboard URL
+// Dashboard route
 app.get('/dashboard', (req, res) => {
-  res.render('dashboard');
+  // Check if the user is logged in
+  if (!req.session.userId) {
+    return res.redirect('/');
+  }
+  // Render the dashboard with the user's data
+  res.render('dashboard', { userId: req.session.userId });
 });
 
-// Define route handler for creating a new post
-app.post('/create', postController.createPost);
+// Logout route
+app.get('/logout', (req, res) => {
+  // Clear the user session
+  req.session.destroy((error) => {
+    if (error) {
+      console.error('Failed to destroy session:', error);
+    }
+    // Redirect the user to the home page
+    res.redirect('/');
+  });
+});
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`Server listening at http://localhost:${port}`);
 });
