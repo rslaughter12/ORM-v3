@@ -38,6 +38,10 @@ app.get('/', (req, res) => {
 
 // Dashboard route
 app.get('/dashboard', postController.getPosts); // Retrieve posts and render dashboard view
+app.get('/dashboard', (req, res) => {
+  res.render('dashboard');
+});
+
 
 // Logout route
 app.get('/logout', (req, res) => {
