@@ -1,8 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('blogPost', 'root', 'password', {
-  host: 'localhost',
-  dialect: 'mysql',
-});
+
+const sequelize = require('../config/database');
+
 
 const Post = sequelize.define('Post', {
   title: {
