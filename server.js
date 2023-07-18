@@ -37,9 +37,9 @@ app.get('/', (req, res) => {
 
 // Dashboard route
 app.get('/dashboard', postController.getPosts); // Retrieve posts and render dashboard view
-app.get('/dashboard', (req, res) => {
-  res.render('dashboard');
-});
+// app.get('/dashboard', (req, res) => {
+//   res.render('dashboard');
+// });
 
 
 // Logout route
@@ -56,7 +56,7 @@ app.get('/logout', (req, res) => {
 
 app.post('/posts', postController.createPost); // Create a new post
 
-app.set('views', path.join(__dirname, 'views'));
+// app.set('views', path.join(__dirname, 'views'));
 
 app.delete('/posts/:id', postController.deletePost); // Delete a post
 

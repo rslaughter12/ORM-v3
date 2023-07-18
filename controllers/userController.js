@@ -8,22 +8,23 @@ exports.signInUser = async (req, res) => {
     // Check if the user exists in the database
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.render('home', { error: 'Invalid email or password' });
+      return res.json( { error: 'Invalid email or password' });
     }
 
     // Verify the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.render('home', { error: 'Invalid email or password' });
+      return res.json( { error: 'Invalid email or password' });
     }
 
     // Successful sign-in
-    req.session.userId = user.id;
-    res.redirect('/dashboard'); // Replace with the dashboard route
-
+    req.session.save(() => {
+    req.session.userId = user.id; // Replace with the dashboard route
+    });
+    res.json(user);
   } catch (error) {
     console.error(error);
-    res.render('home', { error: 'An error occurred' });
+    res.json({ error: 'An error occurred' });
   }
 };
 
@@ -32,11 +33,13 @@ exports.signUpUser = async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ username, email, password: hashedPassword });
+    req.session.save(() => {
     req.session.userId = user.id;
-    res.redirect('/dashboard'); // Replace with the dashboard route
+    });
+    res.json(user); // Replace with the dashboard route
   } catch (error) {
     console.error(error);
-    res.render('home', { error: 'An error occurred' });
+    res.json({ error: 'An error occurred' });
   }
 };
 

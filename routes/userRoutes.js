@@ -10,7 +10,7 @@ router.post('/signin', userController.signInUser);
 router.get('/logout', userController.logoutUser);
 
 // POST route for creating a post
-router.post('/create', postController.createPost);
+// router.post('/create', postController.createPost);
 
 router.post('/signup', userController.signUpUser);
 
