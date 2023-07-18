@@ -6,7 +6,6 @@ const userRoutes = require('./routes/userRoutes');
 const postController = require('./controllers/postController');
 
 const app = express();
-const port = 3001;
 
 // Set up session middleware
 app.use(
@@ -62,6 +61,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.delete('/posts/:id', postController.deletePost); // Delete a post
 
 // Start the server
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+app.listen(process.env.PORT || 3001, () => {
+  console.log('Server is running...');
 });

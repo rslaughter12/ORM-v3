@@ -27,13 +27,15 @@ loginForm.addEventListener('submit', async (event) => {
       body: JSON.stringify(credentials),
     });
 
+    const errorData = await response.json();
+    console.error(errorData);
+
     if (response.ok) {
       // Redirect to the dashboard or desired page on successful login
       window.location.href = '/dashboard';
     } else {
       // Handle the error case where the login was unsuccessful
-      const errorData = await response.json();
-      console.error(errorData.error);
+
       // Display the error message on the page
       const errorElement = document.querySelector('#login-error');
       errorElement.textContent = errorData.error;
