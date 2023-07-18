@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars').create(); // Update this line
 const path = require('path');
+const sequelize = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const postController = require('./controllers/postController');
 
@@ -61,6 +62,8 @@ app.post('/posts', postController.createPost); // Create a new post
 app.delete('/posts/:id', postController.deletePost); // Delete a post
 
 // Start the server
-app.listen(process.env.PORT || 3001, () => {
-  console.log('Server is running...');
+sequelize.sync({force: true}).then(() => {
+  app.listen(process.env.PORT || 3001, () => {
+    console.log('Server is running...');
+  });
 });
