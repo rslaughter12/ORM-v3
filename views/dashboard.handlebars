@@ -92,17 +92,17 @@
   <section class="section">
     <div class="container is-max-desktop">
       <h1 class="title has-text-centered">Create a New Post</h1>
-      <form action="/posts" method="post">
+      <form id="post-form">
         <div class="field">
           <label class="label">Post Title</label>
           <div class="control">
-            <input class="input has-background-dark has-text-white" type="text" name="title" placeholder="Enter post title">
+            <input class="input has-background-dark has-text-white" id="post-title" type="text" name="title" placeholder="Enter post title">
           </div>
         </div>
         <div class="field">
           <label class="label">Post Content</label>
           <div class="control">
-            <textarea class="textarea has-background-dark has-text-white" name="content" placeholder="Enter post content"></textarea>
+            <textarea class="textarea has-background-dark has-text-white" id="post-content" name="content" placeholder="Enter post content"></textarea>
           </div>
         </div>
         <div class="field">
@@ -113,7 +113,7 @@
       </form>
     </div>
   </section>
-
+<p id="post-error"></p>
     <section class="section">
     <div class="container is-max-desktop">
       <h1 class="title has-text-centered">Posts</h1>
@@ -156,7 +156,7 @@
       }
     }
   </script>
-
+<script src="/post.js"></script>
   {{!-- <script src="../static/login.js"></script> --}}
 {{!-- </body>
 </html> --}}

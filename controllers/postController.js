@@ -4,11 +4,11 @@ exports.createPost = async (req, res) => {
   const { title, content } = req.body;
 
   try {
-    await Post.create({ title, content });
-    res.redirect('/dashboard');
+   const post = await Post.create({ title, content });
+    res.json(post);
   } catch (error) {
     console.error('Error creating post:', error);
-    res.redirect('/dashboard');
+    res.json(error);
   }
 };
 
@@ -19,7 +19,7 @@ exports.getPosts = async (req, res) => {
     res.render('dashboard', { posts: plainPosts });
   } catch (error) {
     console.error('Error retrieving posts:', error);
-    res.render('dashboard', { posts: [] });
+    res.json({ posts: [], error });
   }
 };
 exports.deletePost = async (req, res) => {
@@ -30,9 +30,9 @@ exports.deletePost = async (req, res) => {
       where: { id: postId },
     });
 
-    res.sendStatus(200);
+    res.sendStatus(200).json({ message: 'Post deleted' });
   } catch (error) {
     console.error('Error deleting post:', error);
-    res.sendStatus(500);
+    res.sendStatus(500).json({ message: error });
   }
 };

@@ -28,7 +28,7 @@ loginForm.addEventListener('submit', async (event) => {
     });
 
     const errorData = await response.json();
-    console.error(errorData);
+    console.log(errorData);
 
     if (response.ok) {
       // Redirect to the dashboard or desired page on successful login
@@ -78,7 +78,7 @@ signupForm.addEventListener('submit', async (event) => {
     });
 
     const errorData = await response.json();
-    console.error(errorData);
+    console.log(errorData);
 
     if (response.ok) {
       // Redirect to the dashboard or desired page on successful login
